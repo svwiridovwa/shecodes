@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather in Ukraine </title>
+    <link rel="stylesheet" href="src/lera1.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+        <p>
+            <div class="row">
+                <div class="col-1">
+                    Kharkiv
+                </div>
+                <div class="col-1">
+                    Kyiv
+                </div>
+                <div class="col-1">
+                    Lviv
+                </div>
+                <div class="col-1">
+                    Odessa
+                </div>
+            </div>
+        </p>
+        <form id="city-form">
+            <input type="text" placeholder="Enter a city" id="city"/>
+            <input type="submit" value="Search" />
+            <input type="button" value="Current"/>
+        </form>
+        <h1 class="lol">
+            Kharkiv
+        </h1>
+        <p class="nika">
+            <span id="day">
+                Tuesday
+            </span>
+            <span id="times">
+                18:00
+            </span>
+        </p>
+        <p>
+            Sun and Clouds
+        </p>
+        <h2>
+            <div class="row">
+                <div class="col">
+                    <span id="val">
+                        20°C
+                    </span>
+                </div>
+                <div class="col">
+                    Precipitation: 46%
+                    <br />
+                    Wind: 9 km/h
+                </div>
+            </div>
+        </h2>
+    <span class="lol">
+        <div class="row">
+            <div class="col">
+                Mon
+                <br />
+                <img src="https://cdn-icons-png.flaticon.com/512/2932/2932445.png" width="64"/>
+                <br />
+                21°C
+            </div>
+            <div class="col">
+                Tue
+                <br />
+                <img src="https://cdn-icons-png.flaticon.com/512/2948/2948175.png" width="64"/>
+                <br />
+                17°C
+            </div>
+            <div class="col">
+                Wed
+                <br />
+                <img src="https://cdn-icons-png.flaticon.com/512/2932/2932445.png" width="64"/>
+                <br />
+                19°C
+            </div>
+            <div class="col">
+                Thu
+                <br />
+                <img src="https://cdn-icons-png.flaticon.com/512/8003/8003100.png" width="64"/>
+                <br />
+                23°C
+            </div>
+            <div class="col">
+                Fri
+                <br />
+                <img src="https://cdn-icons-png.flaticon.com/512/2932/2932445.png" width="64"/>
+                <br />
+                21°C
+            </div>
+        </div>
+    </span>
+
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+
+
+
+    <script >
+        let time = new Date();
+        let timeNow = document.querySelector("#times");
+        let a = document.querySelector("#day");
+        let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        a.innerHTML = days[time.getDay()];
+        timeNow.innerHTML= time.getHours() +":"+ time.getMinutes();
+        if (time.getMinutes() < 10)
+        {
+            timeNow.innerHTML = time.getHours() + ":0" + time.getMinutes();
+        }
+        if (time.getHours() < 10)
+        {
+            timeNow.innerHTML = "0" + time.getHours() + ":" + time.getMinutes();
+        }
+        if ((time.getHours() < 10) && (time.getMinutes() < 10))
+        {
+            timeNow.innerHTML = "0" + time.getHours() + ":0" + time.getMinutes();
+        }
+        let input = document.querySelector("#city");
+        let inpu = document.querySelector("#city-form");
+        function go(event){
+            event.preventDefault();
+            let b = input.value;
+            let city = document.querySelector(".lol");
+            city.innerHTML = b;
+
+            let apiKey = "aab8d73ae7b8351615bbab455adf8231";
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${b}&appid=${apiKey}&units=metric`;
+
+            function displayWeather(response) {
+                let temp = document.querySelector("#val");
+                let temperature = Math.round(response.data.main.temp);
+                let description = response.data.weather[0].description;
+
+                temp.innerHTML = `${temperature}°C `;
+            }
+            axios.get(url).then(displayWeather);
+        }
+        inpu.addEventListener("submit", go);  
+
+    </script>
+  </body>
+</html>
