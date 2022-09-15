@@ -1,0 +1,28 @@
+body {
+  width: 800px;
+  display: block;
+  border: 1.5px solid;
+  margin: 0 auto;
+}
+form {
+  margin: 30px 0px 30px 0px;
+}
+#nika{
+  padding: 0px auto;
+  margin: 0px auto;
+}
+lol {
+  padding: 70px;
+  display: block;
+}
+img{
+  display: block;
+  margin: 0;
+  width: 65px;
+}
+#val {
+  margin-bottom: 0px;
+}
+pic {
+  width: 30px;
+}
